@@ -1,0 +1,17 @@
+.bg-center {
+  background-position: center;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+.bg-cover {
+  background-size: cover;
+}
+.clip-path {
+  -webkit-clip-path: inset(0 200px 0 0);
+  clip-path: inset(0 200px 0 0);
+}
+
+.fDoQYg > span {
+  color: white !important;
+}
