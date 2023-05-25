@@ -56,7 +56,7 @@ export default function DeblurApp() {
       setError("Please choose a model!");
       setTimeout(() => {
         setError(null);
-      }, 3000);
+      }, 6000);
       return;
     }
 
@@ -65,6 +65,7 @@ export default function DeblurApp() {
       formData.append("inputImage", uploadImage);
       formData.append("modelName", modelName);
       console.log(formData);
+      handleLoading(60);
       axios({
         method: "post",
         url: custom_image_upload_url,
@@ -72,26 +73,24 @@ export default function DeblurApp() {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then((res) => {
-          console.log(`Success ${res.data}`);
-          handleLoading(60);
+          console.log(`Success`, res);
+          setLoading(false);
+          clearInterval(interval);
         })
         .catch((err) => {
           console.log(err);
+          setLoading(null);
+          clearInterval(interval);
         });
     }
   }
-
+  let interval;
   function handleLoading(time) {
     console.log(time);
-    let interval = setInterval(() => {
+    interval = setInterval(() => {
+      console.log("Loading");
       if (time == 0) {
         setLoading(null);
-        axios({
-          method: "GET",
-          url: custom_image_upload_url,
-        })
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
         clearInterval(interval);
       }
       setLoading(time);
@@ -181,9 +180,9 @@ export default function DeblurApp() {
                 required
                 label="Select Model"
               >
-                {Object.keys(models).map((key, index) => (
-                  <Option value={key} key={index}>
-                    {models[key]}
+                {Object.keys(models).map((modle_name, index) => (
+                  <Option value={modle_name} key={index}>
+                    {models[modle_name]}
                   </Option>
                 ))}
               </Select>
@@ -210,8 +209,8 @@ export default function DeblurApp() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          {loading && (
+        {loading && (
+          <div className="flex flex-col items-center">
             <div className="w-4/5 h-3 my-4">
               <Progress
                 color="purple"
@@ -228,8 +227,8 @@ export default function DeblurApp() {
                 </Typography>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </form>
     </>
   );
