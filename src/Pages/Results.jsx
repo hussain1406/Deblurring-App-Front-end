@@ -5,7 +5,6 @@ import {
 } from "react-compare-slider";
 
 export default function Results() {
-  //   const compareImageUrls = ["1", "2", "3", "4"];
   const compareImageUrls = ["1.jpeg", "2.png"];
   return (
     <>
@@ -17,18 +16,10 @@ export default function Results() {
           <div className="h-[500px]" key={index}>
             <ReactCompareSlider
               itemOne={
-                <ReactCompareSliderImage
-                  src={`/img/results/blur/${value}`}
-                  //   src={`/${value}.jpeg`}
-                  alt="Image one"
-                />
+                <ReactCompareSliderImage src={`/img/results/blur/${value}`} />
               }
               itemTwo={
-                <ReactCompareSliderImage
-                  src={`/img/results/clean/${value}`}
-                  //   src={`/${value}.jpeg`}
-                  alt="Image two"
-                />
+                <ReactCompareSliderImage src={`/img/results/clean/${value}`} />
               }
             />
           </div>
